@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "XmlReader2";
+}
+
+<h2>XmlReader2</h2>
+@{var test = ViewBag.test;
+  foreach(var el in test)
+  {
+      string item = el.Value;
+      @Html.Label(item)
+  }}
