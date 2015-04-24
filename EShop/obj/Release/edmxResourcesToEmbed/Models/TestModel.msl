@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище TestBaseModelContainer" CdmEntityContainer="TestBaseEntities">
+    <EntitySetMapping Name="ListAnswerName">
+      <EntityTypeMapping TypeName="TestBaseModel.ListAnswerName">
+        <MappingFragment StoreEntitySet="ListAnswerName">
+          <ScalarProperty Name="idLA" ColumnName="idLA" />
+          <ScalarProperty Name="idQ" ColumnName="idQ" />
+          <ScalarProperty Name="NameAnswer" ColumnName="NameAnswer" />
+          <ScalarProperty Name="Right" ColumnName="Right" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuestionName">
+      <EntityTypeMapping TypeName="TestBaseModel.QuestionName">
+        <MappingFragment StoreEntitySet="QuestionName">
+          <ScalarProperty Name="NextQ" ColumnName="NextQ" />
+          <ScalarProperty Name="idQ" ColumnName="idQ" />
+          <ScalarProperty Name="idTest" ColumnName="idTest" />
+          <ScalarProperty Name="NameQ" ColumnName="NameQ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestName">
+      <EntityTypeMapping TypeName="TestBaseModel.TestName">
+        <MappingFragment StoreEntitySet="TestName">
+          <ScalarProperty Name="AboutTest" ColumnName="AboutTest" />
+          <ScalarProperty Name="TimeOnTest" ColumnName="TimeOnTest" />
+          <ScalarProperty Name="idTest" ColumnName="idTest" />
+          <ScalarProperty Name="NameTest" ColumnName="NameTest" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAnswerTest">
+      <EntityTypeMapping TypeName="TestBaseModel.UserAnswerTest">
+        <MappingFragment StoreEntitySet="UserAnswerTest">
+          <ScalarProperty Name="RightA" ColumnName="RightA" />
+          <ScalarProperty Name="idUserAnswer" ColumnName="idUserAnswer" />
+          <ScalarProperty Name="idUserTest" ColumnName="idUserTest" />
+          <ScalarProperty Name="idQ" ColumnName="idQ" />
+          <ScalarProperty Name="idLA" ColumnName="idLA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTest">
+      <EntityTypeMapping TypeName="TestBaseModel.UserTest">
+        <MappingFragment StoreEntitySet="UserTest">
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="idUserTest" ColumnName="idUserTest" />
+          <ScalarProperty Name="idTest" ColumnName="idTest" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

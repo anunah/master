@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestBaseModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TestBaseEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="ListAnswerName" EntityType="TestBaseModel.ListAnswerName" />
+    <EntitySet Name="QuestionName" EntityType="TestBaseModel.QuestionName" />
+    <EntitySet Name="TestName" EntityType="TestBaseModel.TestName" />
+    <EntitySet Name="UserAnswerTest" EntityType="TestBaseModel.UserAnswerTest" />
+    <EntitySet Name="UserTest" EntityType="TestBaseModel.UserTest" />
+    <AssociationSet Name="FK_ListAnswerName_ToQuestionName" Association="TestBaseModel.FK_ListAnswerName_ToQuestionName">
+      <End Role="QuestionName" EntitySet="QuestionName" />
+      <End Role="ListAnswerName" EntitySet="ListAnswerName" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionName_ToTestName" Association="TestBaseModel.FK_QuestionName_ToTestName">
+      <End Role="TestName" EntitySet="TestName" />
+      <End Role="QuestionName" EntitySet="QuestionName" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTest_ToTestName" Association="TestBaseModel.FK_UserTest_ToTestName">
+      <End Role="TestName" EntitySet="TestName" />
+      <End Role="UserTest" EntitySet="UserTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAnswerTest_ToUserTest" Association="TestBaseModel.FK_UserAnswerTest_ToUserTest">
+      <End Role="UserTest" EntitySet="UserTest" />
+      <End Role="UserAnswerTest" EntitySet="UserAnswerTest" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ListAnswerName">
+    <Key>
+      <PropertyRef Name="idLA" />
+    </Key>
+    <Property Name="idLA" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="idQ" Type="Int32" Nullable="false" />
+    <Property Name="NameAnswer" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Right" Type="Boolean" />
+    <NavigationProperty Name="QuestionName" Relationship="TestBaseModel.FK_ListAnswerName_ToQuestionName" FromRole="ListAnswerName" ToRole="QuestionName" />
+  </EntityType>
+  <EntityType Name="QuestionName">
+    <Key>
+      <PropertyRef Name="idQ" />
+    </Key>
+    <Property Name="idQ" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="idTest" Type="Int32" Nullable="false" />
+    <Property Name="NameQ" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="ListAnswerName" Relationship="TestBaseModel.FK_ListAnswerName_ToQuestionName" FromRole="QuestionName" ToRole="ListAnswerName" />
+    <NavigationProperty Name="TestName" Relationship="TestBaseModel.FK_QuestionName_ToTestName" FromRole="QuestionName" ToRole="TestName" />
+    <Property Type="Int32" Name="NextQ" />
+  </EntityType>
+  <EntityType Name="TestName">
+    <Key>
+      <PropertyRef Name="idTest" />
+    </Key>
+    <Property Name="idTest" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="NameTest" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="QuestionName" Relationship="TestBaseModel.FK_QuestionName_ToTestName" FromRole="TestName" ToRole="QuestionName" />
+    <NavigationProperty Name="UserTest" Relationship="TestBaseModel.FK_UserTest_ToTestName" FromRole="TestName" ToRole="UserTest" />
+    <Property Type="Int32" Name="TimeOnTest" />
+    <Property Type="String" Name="AboutTest" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserAnswerTest">
+    <Key>
+      <PropertyRef Name="idUserAnswer" />
+    </Key>
+    <Property Name="idUserAnswer" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="idUserTest" Type="Int32" Nullable="false" />
+    <Property Name="idQ" Type="Int32" Nullable="false" />
+    <Property Name="idLA" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserTest" Relationship="TestBaseModel.FK_UserAnswerTest_ToUserTest" FromRole="UserAnswerTest" ToRole="UserTest" />
+    <Property Type="Int32" Name="RightA" />
+  </EntityType>
+  <EntityType Name="UserTest">
+    <Key>
+      <PropertyRef Name="idUserTest" />
+    </Key>
+    <Property Name="idUserTest" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="idTest" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="TestName" Relationship="TestBaseModel.FK_UserTest_ToTestName" FromRole="UserTest" ToRole="TestName" />
+    <NavigationProperty Name="UserAnswerTest" Relationship="TestBaseModel.FK_UserAnswerTest_ToUserTest" FromRole="UserTest" ToRole="UserAnswerTest" />
+    <Property Type="Decimal" Name="Result" Precision="4" Scale="1" />
+  </EntityType>
+  <Association Name="FK_ListAnswerName_ToQuestionName">
+    <End Role="QuestionName" Type="TestBaseModel.QuestionName" Multiplicity="1" />
+    <End Role="ListAnswerName" Type="TestBaseModel.ListAnswerName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionName">
+        <PropertyRef Name="idQ" />
+      </Principal>
+      <Dependent Role="ListAnswerName">
+        <PropertyRef Name="idQ" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionName_ToTestName">
+    <End Role="TestName" Type="TestBaseModel.TestName" Multiplicity="1" />
+    <End Role="QuestionName" Type="TestBaseModel.QuestionName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestName">
+        <PropertyRef Name="idTest" />
+      </Principal>
+      <Dependent Role="QuestionName">
+        <PropertyRef Name="idTest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTest_ToTestName">
+    <End Role="TestName" Type="TestBaseModel.TestName" Multiplicity="1" />
+    <End Role="UserTest" Type="TestBaseModel.UserTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestName">
+        <PropertyRef Name="idTest" />
+      </Principal>
+      <Dependent Role="UserTest">
+        <PropertyRef Name="idTest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAnswerTest_ToUserTest">
+    <End Role="UserTest" Type="TestBaseModel.UserTest" Multiplicity="1" />
+    <End Role="UserAnswerTest" Type="TestBaseModel.UserAnswerTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTest">
+        <PropertyRef Name="idUserTest" />
+      </Principal>
+      <Dependent Role="UserAnswerTest">
+        <PropertyRef Name="idUserTest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

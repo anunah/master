@@ -1,0 +1,39 @@
+﻿@model EShop.Models.TestName
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">X</button>
+        <h4>Удалить тест</h4>
+    </div>
+    <div class="modal-body">
+        @using (Html.BeginForm("Delete", "AddTest", FormMethod.Post, new { @class = "form-horizontal", id = "DelForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            int time = Model.TimeOnTest / 60;
+            @Html.HiddenFor(model => model.idTest)
+            <div class="form-group">
+                @Html.LabelFor(model => model.NameTest, new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.DisplayFor(model => model.NameTest, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeOnTest, new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.Label(@time.ToString())
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AboutTest, new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.DisplayFor(model => model.AboutTest, new { @class = "form-control" })
+                </div>
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+        <button class="btn btn-primary" id="DelButton">Удалить</button>
+    </div>
+</div>

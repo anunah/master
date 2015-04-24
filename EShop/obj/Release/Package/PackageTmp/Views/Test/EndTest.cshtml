@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "EndTest";
+}
+
+<h3>Вы завершили тест</h3>
+@using (Html.BeginForm("ResTest", "Test", new { idUserTest = Model.idUserTest }))
+{
+                <input type="submit" value="Показать результаты"/>
+}
+

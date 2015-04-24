@@ -1,0 +1,63 @@
+﻿@model EShop.Models.QuestModel
+@{
+    ViewBag.Title = "Начать тестирование";
+}
+
+
+
+
+@using (Ajax.BeginForm("NextQuest", "Test", new { idQ = Model.QuestionName.idQ, idTest = Model.QuestionName.idTest }, new AjaxOptions { UpdateTargetId = "content" }, new { @class = "form" }))
+{
+    @Html.HiddenFor(model => model.idUserTest, new { id = "idUserTest" })
+    <div class="form-group">
+        @Html.HiddenFor(model => model.Timer, new { id = "Timer" })
+        Время до конца :<span id="TimerText"></span>
+    </div>
+    
+    <div class="form-group">
+        <p class="lead">@Model.QuestionName.NameQ</p>
+    </div>
+    
+    @Html.Partial("ListAnswer", Model)
+
+    <div class="form-group">
+        <input type="submit" value="Ответить" class="btn btn-default" />
+    </div>
+}
+
+@using (Html.BeginForm("ResTest", "Test", new { idUserTest = Model.idUserTest }, FormMethod.Post, new { @class = "form" }))
+{
+    <input type="submit" value="Закончить" class="btn btn-primary" />
+}
+
+@section scripts{
+    <script>
+
+        window.onload = function on() {
+            timeoutId = setInterval(go, 1000)
+        }
+        function go() {
+            time = $("#Timer").val()
+            if (time != 0) {
+                res = time - 1
+                $("#Timer").val(res)
+                var h = res / 3600 ^ 0;
+                var m = (res - h * 3600) / 60 ^ 0;
+                var s = res - h * 3600 - m * 60;
+                $("#TimerText").text((h < 10 ? "0" + h : h) + " : " + (m < 10 ? "0" + m : m) + " : " + (s < 10 ? "0" + s : s))
+            }
+            else {
+                var idusertest = $("#idUserTest").val()
+                window.location.href = "/Test/EndTest/" + idusertest;
+            }
+
+        }
+
+    </script>
+}
+
+
+
+
+
+

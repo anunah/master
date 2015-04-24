@@ -1,0 +1,13 @@
+﻿@model EShop.Models.UserTest
+
+@{
+    ViewBag.Title = "ResTest";
+}
+
+<h2>Результаты теста</h2>
+<ul>
+    <li>@Html.DisplayFor(model => model.TestName.NameTest)</li>
+    <li>@Html.DisplayFor(model => model.UserName)</li>
+    <li>@Html.DisplayFor(model => model.Result)</li>
+</ul>
+

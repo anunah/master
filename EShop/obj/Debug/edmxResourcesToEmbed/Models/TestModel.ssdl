@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище TestBaseModel" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Хранилище TestBaseModelContainer">
+    <EntitySet Name="ListAnswerName" EntityType="Хранилище TestBaseModel.ListAnswerName" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="QuestionName" EntityType="Хранилище TestBaseModel.QuestionName" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TestName" EntityType="Хранилище TestBaseModel.TestName" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserAnswerTest" EntityType="Хранилище TestBaseModel.UserAnswerTest" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserTest" EntityType="Хранилище TestBaseModel.UserTest" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ListAnswerName_ToQuestionName" Association="Хранилище TestBaseModel.FK_ListAnswerName_ToQuestionName">
+      <End Role="QuestionName" EntitySet="QuestionName" />
+      <End Role="ListAnswerName" EntitySet="ListAnswerName" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionName_ToTestName" Association="Хранилище TestBaseModel.FK_QuestionName_ToTestName">
+      <End Role="TestName" EntitySet="TestName" />
+      <End Role="QuestionName" EntitySet="QuestionName" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAnswerTest_ToUserTest" Association="Хранилище TestBaseModel.FK_UserAnswerTest_ToUserTest">
+      <End Role="UserTest" EntitySet="UserTest" />
+      <End Role="UserAnswerTest" EntitySet="UserAnswerTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTest_ToTestName" Association="Хранилище TestBaseModel.FK_UserTest_ToTestName">
+      <End Role="TestName" EntitySet="TestName" />
+      <End Role="UserTest" EntitySet="UserTest" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ListAnswerName">
+    <Key>
+      <PropertyRef Name="idLA" />
+    </Key>
+    <Property Name="idLA" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="idQ" Type="int" Nullable="false" />
+    <Property Name="NameAnswer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Right" Type="bit" />
+  </EntityType>
+  <EntityType Name="QuestionName">
+    <Key>
+      <PropertyRef Name="idQ" />
+    </Key>
+    <Property Name="idQ" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="idTest" Type="int" Nullable="false" />
+    <Property Name="NameQ" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NextQ" Type="int" />
+  </EntityType>
+  <EntityType Name="TestName">
+    <Key>
+      <PropertyRef Name="idTest" />
+    </Key>
+    <Property Name="idTest" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NameTest" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="TimeOnTest" Type="int" />
+    <Property Name="AboutTest" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserAnswerTest">
+    <Key>
+      <PropertyRef Name="idUserAnswer" />
+    </Key>
+    <Property Name="idUserAnswer" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="idUserTest" Type="int" Nullable="false" />
+    <Property Name="idQ" Type="int" Nullable="false" />
+    <Property Name="idLA" Type="int" Nullable="false" />
+    <Property Name="RightA" Type="int" />
+  </EntityType>
+  <EntityType Name="UserTest">
+    <Key>
+      <PropertyRef Name="idUserTest" />
+    </Key>
+    <Property Name="idUserTest" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="idTest" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Result" Type="decimal" Precision="4" Scale="1" />
+  </EntityType>
+  <Association Name="FK_ListAnswerName_ToQuestionName">
+    <End Role="QuestionName" Type="Хранилище TestBaseModel.QuestionName" Multiplicity="1" />
+    <End Role="ListAnswerName" Type="Хранилище TestBaseModel.ListAnswerName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionName">
+        <PropertyRef Name="idQ" />
+      </Principal>
+      <Dependent Role="ListAnswerName">
+        <PropertyRef Name="idQ" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionName_ToTestName">
+    <End Role="TestName" Type="Хранилище TestBaseModel.TestName" Multiplicity="1" />
+    <End Role="QuestionName" Type="Хранилище TestBaseModel.QuestionName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestName">
+        <PropertyRef Name="idTest" />
+      </Principal>
+      <Dependent Role="QuestionName">
+        <PropertyRef Name="idTest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAnswerTest_ToUserTest">
+    <End Role="UserTest" Type="Хранилище TestBaseModel.UserTest" Multiplicity="1" />
+    <End Role="UserAnswerTest" Type="Хранилище TestBaseModel.UserAnswerTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTest">
+        <PropertyRef Name="idUserTest" />
+      </Principal>
+      <Dependent Role="UserAnswerTest">
+        <PropertyRef Name="idUserTest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTest_ToTestName">
+    <End Role="TestName" Type="Хранилище TestBaseModel.TestName" Multiplicity="1" />
+    <End Role="UserTest" Type="Хранилище TestBaseModel.UserTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestName">
+        <PropertyRef Name="idTest" />
+      </Principal>
+      <Dependent Role="UserTest">
+        <PropertyRef Name="idTest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,41 @@
+﻿@model EShop.Models.IndexViewModel
+@{
+    ViewBag.Title = "Список тестов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Тесты</h3>
+<table class ="table">
+        <tr>
+            
+
+        </tr>
+    @foreach (var mod in Model.testName)
+    {
+        <tr>
+            <td>
+                @using (Html.BeginForm("StartTest", "Test", new { idTest = mod.idTest }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Начать" class="btn btn-default"/>
+                }
+            </td>
+            <td>@mod.NameTest</td>
+            <td>@mod.AboutTest</td>
+            @if (User.IsInRole("admin"))
+            {
+            <td>
+                @using (Html.BeginForm("ViewAddQuestion", "AddQuest", new { idTest = mod.idTest }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Добавить вопрос" class="btn btn-default"/>
+                }
+            </td>
+            }
+        </tr>
+    }
+    
+</table>
+<div class="btn-group">
+    @Ajax.PageLinks(Model.PageInfo, x => Url.Action("Index",new { page = x}))
+</div>  

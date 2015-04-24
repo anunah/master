@@ -1,0 +1,31 @@
+﻿@model IQueryable<EShop.Models.TestName>
+
+@{
+    ViewBag.Title = "UpdateTest";
+}
+
+
+@foreach (var item in Model)
+{
+<fieldset>
+     @{int time = item.TimeOnTest / 60;}  
+    <div class="display-field">
+        @item.NameTest
+    </div>
+    <div class="display-field">
+        @item.AboutTest
+    </div>
+    <div class="display-field">
+        @time
+    </div>
+
+    
+</fieldset>
+
+<span>
+    @Html.ActionLink("Редактировать", "Edit", new { idTest = item.idTest }) |
+    @Html.ActionLink("Редактировать вопросы", "UpdateQuest", new { idTest = item.idTest })
+</span>
+
+
+}

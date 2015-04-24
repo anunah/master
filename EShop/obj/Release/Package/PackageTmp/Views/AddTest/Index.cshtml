@@ -1,0 +1,51 @@
+﻿@model EShop.Models.TestName
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Создать тест</h3>
+<div class="form">
+@using (Html.BeginForm("Index", "AddTest", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    
+
+        
+        <div class="control-group">
+            <div class="controls">
+                @Html.LabelFor(model => model.NameTest, new {@class ="control-label"  })
+                @Html.TextBoxFor(model => model.NameTest, new {@class ="form-control"  })
+                @Html.ValidationMessageFor(model => model.NameTest)
+            </div>
+        </div>
+
+        
+        <div class="control-group">
+            <div class="controls">
+                @Html.LabelFor(model => model.TimeOnTest, new {@class ="control-label"  })
+                @Html.TextBoxFor(model => model.TimeOnTest, new {type="number", @class ="form-control"  })
+                @Html.ValidationMessageFor(model => model.TimeOnTest)
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                @Html.LabelFor(model => model.AboutTest, new {@class ="control-label"  })
+                @Html.TextAreaFor(model => model.AboutTest, new {@class ="form-control"  })
+                @Html.ValidationMessageFor(model => model.AboutTest)
+            </div>
+        </div>
+
+        <p>
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </p>
+   
+}
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

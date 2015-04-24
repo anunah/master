@@ -1,0 +1,38 @@
+﻿@model List<EShop.Models.TestName>
+
+@{
+    ViewBag.Title = "Обновить тесты";
+}
+<h3>Редактировать тесты</h3>
+<table class="table">
+    <tr>
+        <th>Название теста</th>
+        <th>Описание теста</th>
+        <th>Время на тест</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @{int time = item.TimeOnTest / 60; }
+            <td>
+                @item.NameTest
+            </td>
+            <td>
+                @item.AboutTest
+            </td>
+            <td>
+                @time
+            </td>
+            <td>
+                <span>
+                    @Html.ActionLink("Редактировать", "Edit", new { idTest = item.idTest }) |
+                    @Html.ActionLink("Редактировать вопросы", "UpdateQuest", "AddQuest", new { idTest = item.idTest }, new { })
+                    @Html.ActionLink("Удалить", "Delete", new { idTest = item.idTest }, new { @class = "DelPopup", data_dialog_title = "Удаление теста" })
+                </span>
+            </td>
+        </tr>
+    }
+</table>
+<div id="modDialogDel" class="modal fade">
+    <div id="dialogContentDel" class="modal-dialog"></div>
+</div>

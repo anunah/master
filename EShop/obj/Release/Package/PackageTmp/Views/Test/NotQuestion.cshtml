@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "NotQuestion";
+}
+<h3>В тесте нет вопросов</h3>
+@using (Html.BeginForm("ViewAddQuestion", "AddQuest", new { idTest = ViewBag.idTest }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Добавить вопрос"/>
+                }

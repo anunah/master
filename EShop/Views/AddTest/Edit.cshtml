@@ -1,0 +1,42 @@
+﻿@model EShop.Models.TestName
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Редакторовать тест</h3>
+<div class="form-horizontal">
+    @using (Html.BeginForm("Edit", "AddTest", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+        int time = Model.TimeOnTest / 60;
+       <div class="form-group">
+            <div class="controls">
+                @Html.LabelFor(model => model.NameTest, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.NameTest, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NameTest)
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <div class="controls">
+                @Html.LabelFor(model => model.TimeOnTest, new { @class = "control-label" })
+                @Html.TextBox("TimeOnTest",@time.ToString(), new { type = "number", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TimeOnTest)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="controls">
+                @Html.LabelFor(model => model.AboutTest, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.AboutTest, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AboutTest)
+            </div>
+        </div>
+
+        <div class="form-group">
+                <input type="submit" value="Сохранить изменения" class="btn btn-default" />
+        </div>
+   
+    }
+</div>

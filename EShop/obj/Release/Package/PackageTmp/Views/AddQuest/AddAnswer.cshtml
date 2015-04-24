@@ -1,0 +1,32 @@
+﻿@model KeyValuePair<string, EShop.Models.AddAnswerModel>
+
+
+<div class="answerwrapper">
+
+    
+
+    <fieldset>
+        <legend>ListAnswerName</legend>
+
+        
+        <div class="btn remove-line">Удалить</div>
+        <div class="editor-label">
+            
+        </div>
+        <div class="editor-field">
+            @Html.Editor("AddAnswerModeldel["+ Model.Key +"].NameAnswer", Model.Value.NameAnswer)
+            @Html.ValidationMessage("AddAnswerModeldel["+ Model.Key +"].NameAnswer")
+        </div>
+
+        <div class="editor-label">
+            
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("AddAnswerModeldel["+ Model.Key +"].Right", Model.Value.Right)
+            @Html.ValidationMessage( "AddAnswerModeldel["+ Model.Key +"].Right")
+        </div>
+
+        
+    </fieldset>
+
+</div>

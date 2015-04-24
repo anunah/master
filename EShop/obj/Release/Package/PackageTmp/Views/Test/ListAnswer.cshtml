@@ -1,0 +1,18 @@
+﻿@model EShop.Models.QuestModel
+            
+            
+            @foreach (var modA in Model.QuestionName.ListAnswerName)
+            {
+               
+                    <div class="form-group">
+                        <label>
+                        <div class="radio">
+                            @Html.RadioButtonFor(m => m.SelectAnswer, modA.idLA, new { id = modA.idLA})
+                        </div>
+                        @Html.DisplayFor(item => modA.NameAnswer)
+                        </label>
+                    </div>
+                  
+            }
+            
+            

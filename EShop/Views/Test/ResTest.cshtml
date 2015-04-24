@@ -1,0 +1,13 @@
+﻿@model EShop.Models.UserTest
+
+@{
+    ViewBag.Title = "Результаты теста";
+ }
+
+<h3>Результаты теста</h3>
+
+<ul class="list-inline">
+    <li>@Html.DisplayFor(model => model.TestName.NameTest) -</li>
+    <li><p class="lead">@Html.DisplayFor(model => model.Result)% правильных ответов</p></li>
+</ul>
+

@@ -1,0 +1,91 @@
+﻿@model EShop.Models.QuestionName
+@{
+    ViewBag.Title = "Добавить вопрос";
+}
+@Scripts.Render("~/bundles/jquery")
+
+
+<h3>Добавить вопрос к тесту @Html.DisplayFor(model => model.TestName.NameTest)</h3>
+<div>
+    @using (Html.BeginForm("AddQuestion", "AddQuest", FormMethod.Post, new {@class="form-horizontal" }))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(model => model.idTest)
+        <div id="AnswerBlock">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    Вопрос</label>
+                <div class="col-sm-10">
+                    @Html.TextBox("NameQ", "", new { @class = "form-control" })
+                    @Html.ValidationMessage("NameQ")
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    Правильный ответ</label>
+
+                <div class="col-sm-10">
+                    @Html.TextBox("ListAnswerName[0].NameAnswer", "", new { @class = "form-control" })
+                    @Html.ValidationMessage("ListAnswerName[0].NameAnswer")
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group" id="AnswerModel">
+            <div class="btn btn-default" id="AddAnswer">Добавить ответ</div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                Сохранить</button>
+        </div>
+    }
+</div>
+@section scripts{
+    <script>
+        function CustomerEdit() {
+            _this = this;
+            var i = 0;
+            this.ajaxAddOwnership = "/AddQuest/AddAnswerMethod";
+
+            //тут должна быть валидация на клиенте, динамически добавить атрибут data-val
+            this.init = function () {
+                $("#AddAnswer").click(function () {
+                    i++;
+                    $.ajax({
+                        type: "GET",
+                        url: "/AddQuest/AddAnswerMethod?id=" + i,
+                        success: function (data) {
+                            $("#AnswerBlock").append(data);
+                            $(".form-horizontal").removeData("validator");
+                            $(".form-horizontal").removeData("unobtrusiveValidation");
+                            $.validator.unobtrusive.parse(".form-horizontal");
+                        }
+                    })
+                });
+
+                $(document).on("click", ".btn-default", function () {
+                    $(this).closest("#answerwrapper").remove();
+                });
+            }
+        }
+
+        var customerEdit = null;
+        $().ready(function () {
+            customerEdit = new CustomerEdit();
+            customerEdit.init();
+        });
+        /*$(function () {
+               var i = 0;
+               $('#AddAnswer').click(function ()
+               {
+                   
+                   i++;
+                   var html2Add = "<div class='controls'>" +
+                    "<div><label>Ответ</label><div>"+
+                        "<input  type='text' name='ListAnswerName[" + i + "].NameAnswer' />" +
+                    "</div></div></div>";
+                   $('#AnswerBlock').append(html2Add);
+               })
+           })*/
+    </script>
+}

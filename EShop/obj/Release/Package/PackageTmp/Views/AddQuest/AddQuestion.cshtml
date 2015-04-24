@@ -1,0 +1,88 @@
+﻿@model EShop.Models.QuestionName
+@{
+    ViewBag.Title = "AddQuestion";
+}
+@Scripts.Render("~/bundles/jquery")
+
+
+<h3>Добавить вопрос к тесту @Html.DisplayFor(model => model.TestName.NameTest)</h3>
+@using (Html.BeginForm("AddQuestion", "AddQuest"))
+{
+    @Html.ValidationSummary()
+    @Html.HiddenFor(model => model.idTest)
+    <div class="control-group">
+            <label class="control-label">
+                Вопрос</label>
+            <div class="controls">
+                @Html.TextBox("NameQ")
+                @Html.ValidationMessage("NameQ")
+            </div>
+        </div>
+    <div class="control-group">
+            <label class="control-label">
+                Правильный ответ</label>
+            <div id="AnswerBlock">
+                <div class="controls">
+                    @Html.TextBox("ListAnswerName[0].NameAnswer")
+                    @Html.ValidationMessage("ListAnswerName[0].NameAnswer")
+                </div>
+            </div>
+        </div>
+    <div id="AnswerModel">
+        <div class="btn" id="AddAnswer">Добавить</div>
+    </div>
+    <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Ок</button>
+        </div>
+}
+@section scripts{
+<script>
+    function CustomerEdit() {
+        _this = this;
+        var i = 0;
+        this.ajaxAddOwnership = "/AddQuest/AddAnswerMethod";
+        
+
+        this.init = function () {
+            $("#AddAnswer").click(function () {
+                i++;
+                $.ajax({
+                    type: "GET",
+                    url: "/AddQuest/AddAnswerMethod?id=" + i,
+                    success: function (data) {
+                        $("#AnswerBlock").append(data);
+                        var form = $("#AnswerBlock").closest(".answerwrapper");
+                        form.removeData('validator');
+                        form.removeData('unobtrusiveValidation');
+                        $.validator.unobtrusive.parse(form);
+                    }
+                })
+            });
+
+            $(document).on("click", ".remove-line", function () {
+                $(this).closest(".answerwrapper").remove();
+            });
+        }
+    }
+
+    var customerEdit = null;
+    $().ready(function () {
+        customerEdit = new CustomerEdit();
+        customerEdit.init();
+    });
+    /*$(function () {
+           var i = 0;
+           $('#AddAnswer').click(function ()
+           {
+               
+               i++;
+               var html2Add = "<div class='controls'>" +
+                "<div><label>Ответ</label><div>"+
+                    "<input  type='text' name='ListAnswerName[" + i + "].NameAnswer' />" +
+                "</div></div></div>";
+               $('#AnswerBlock').append(html2Add);
+           })
+       })*/
+    </script>
+    }
